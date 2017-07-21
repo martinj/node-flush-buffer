@@ -1,0 +1,49 @@
+{
+  "name": "flush-buffer",
+  "version": "0.1.0",
+  "description": "Buffer flushed on interval or size",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint index.js test",
+    "watch": "mocha --watch 'test/**/*.js' 'lib/**/*.js' '*.js' --timeout 500",
+    "test": "npm run lint && NODE_ENV=test istanbul cover _mocha -- -u exports -R spec --timeout 3000 'lib/**/*.test.js' 'test/**/*.test.js'",
+    "mocha-only-detect": "mocha-only-detector-glob **/*.test.js",
+    "ci": "npm test --coverage && istanbul report cobertura",
+    "changelog": "git log `git describe --tags --abbrev=0`..HEAD --pretty=format:\"  * %s\"",
+    "release": "npm run ci && release-it -n -i patch",
+    "release:minor": "npm run ci && release-it -n -i minor",
+    "release:major": "npm run ci && release-it -n -i major"
+  },
+  "engines": {
+    "node": ">=6.x.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/martinj/node-flush-buffer"
+  },
+  "keywords": [],
+  "author": "Martin Jonsson <martin.jonsson@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/martinj/node-flush-buffer/issues"
+  },
+  "homepage": "https://github.com/martinj/node-flush-buffer",
+  "eslintConfig": {
+    "extends": "@aptoma/eslint-config",
+    "env": {
+      "node": true,
+      "mocha": true,
+      "es6": true
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@aptoma/eslint-config": "^7.0.1",
+    "chai": "^4.1.0",
+    "eslint": "^4.3.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.4.2",
+    "mocha-only-detector": "^0.1.0",
+    "release-it": "^2.8.2"
+  }
+}
