@@ -23,7 +23,7 @@ class FlushBuffer extends EventEmitter {
 
 	flush() {
 		clearTimeout(this.flushTimeoutId);
-		this.flushTimeoutId = setTimeout(() => this.flush(), this.flushInterval);
+		this.flushTimeoutId = setTimeout(() => this.flush(), this.flushInterval).unref();
 
 		if (!this.buffer.length) {
 			return;
