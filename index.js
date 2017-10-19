@@ -9,7 +9,8 @@ class FlushBuffer extends EventEmitter {
 		this.flushInterval = flushInterval || 10000;
 		this.maxItems = maxItems || 100;
 		this.buffer = [];
-		this.flushTimeoutId = setTimeout(() => this.flush(), this.flushInterval).unref();
+		this.flushTimeoutId;
+		this.flush();
 	}
 
 	add(data) {
@@ -21,6 +22,10 @@ class FlushBuffer extends EventEmitter {
 		}
 	}
 
+	get() {
+		return this.buffer;
+	}
+
 	flush() {
 		clearTimeout(this.flushTimeoutId);
 		this.flushTimeoutId = setTimeout(() => this.flush(), this.flushInterval).unref();
@@ -29,7 +34,12 @@ class FlushBuffer extends EventEmitter {
 			return;
 		}
 
-		this.emit('flush', this.buffer);
+		try {
+			this.emit('flush', this.buffer);
+		} catch (err) {
+			this.emit('error', err);
+		}
+
 		this.buffer = [];
 	}
 }

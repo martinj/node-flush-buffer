@@ -49,4 +49,18 @@ describe('Flush Buffer', () => {
 		}, 2);
 	});
 
+	it('should emit error if flush listener throws', (done) => {
+		const buffer = new FlushBuffer({flushInterval: 1});
+		buffer.on('flush', () => {
+			throw new Error('shit');
+		});
+
+		buffer.on('error', (err) => {
+			expect(err.message).to.equal('shit');
+			done();
+		});
+
+		buffer.add('a');
+	});
+
 });
