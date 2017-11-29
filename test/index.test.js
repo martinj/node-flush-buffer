@@ -63,4 +63,15 @@ describe('Flush Buffer', () => {
 		buffer.add('a');
 	});
 
+	describe('clear()', () => {
+
+		it('empties the current buffer', () => {
+			const buffer = new FlushBuffer({flushInterval: 1});
+			buffer.add('a');
+			expect(buffer.buffer).to.have.a.lengthOf(1);
+			buffer.clear();
+			expect(buffer.buffer).to.have.a.lengthOf(0);
+		});
+
+	});
 });
